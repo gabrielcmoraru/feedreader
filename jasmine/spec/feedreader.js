@@ -54,24 +54,6 @@ $(function() {
 				});
 		});
 
-		describe('The menu', function() {
-
-	 			it('is hidden by default', function() {
-      		expect($('body').hasClass('menu-hidden')).toBe(true);
- 			});
-				let menu = $('a.menu-icon-link');
-
-	 			it('is visible on click', function() {
-
-					menu.click();
- 					expect(document.body.classList).not.toContain("menu-hidden");
- 			});
- 				it('is Not visible on click', function() {
-					menu.click();
- 					expect(document.body.classList).toContain("menu-hidden");
- 					// expect($('body').hasClass('menu-hidden')).toBe(true);
-	 		});
-		})
 		/* TODO: Write a new test suite named "The menu" */
 
 				/* TODO: Write a test that ensures the menu element is
@@ -86,6 +68,27 @@ $(function() {
 					* clicked and does it hide when clicked again.
 					*/
 
+		describe('The menu', function() {
+				// default state
+				it('is hidden by default', function() {
+					expect($('body').hasClass('menu-hidden')).toBe(true);
+			});
+
+				let menu = $('a.menu-icon-link');
+				// first click
+				it('is visible on click', function() {
+
+					menu.click();
+					expect(document.body.classList).not.toContain("menu-hidden");
+			});
+				// second click
+				it('is Not visible on click', function() {
+					menu.click();
+					expect(document.body.classList).toContain("menu-hidden");
+
+			});
+		})
+
 		/* TODO: Write a new test suite named "Initial Entries" */
 
 				/* TODO: Write a test that ensures when the loadFeed
@@ -94,6 +97,18 @@ $(function() {
 				 * Remember, loadFeed() is asynchronous so this test will require
 				 * the use of Jasmine's beforeEach and asynchronous done() function.
 				 */
+
+		describe('Initial Entries', function() {
+				// Run every time before testing
+				beforeEach(function(done) {
+					loadFeed(0, done);
+				});
+				// Check if object is not empty
+				it('exists', function() {
+					expect($('.feed .entry').length).not.toBe(0);
+				});
+		})
+
 
 		/* TODO: Write a new test suite named "New Feed Selection" */
 
