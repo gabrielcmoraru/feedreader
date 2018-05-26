@@ -25,12 +25,10 @@ $(function() {
 						expect(allFeeds).toBeDefined();
 						expect(allFeeds.length).not.toBe(0);
 				});
-
 				/* TODO: Write a test that loops through each feed
 				 * in the allFeeds object and ensures it has a URL defined
 				 * and that the URL is not empty.
 				 */
-
 				it('URL exists and not empty', function() {
 					allFeeds.forEach( function(x) {
 						// exists?
@@ -39,7 +37,6 @@ $(function() {
 						expect(x.url.length).not.toBe(0);
 					});
 				});
-
 				/* TODO: Write a test that loops through each feed
 				 * in the allFeeds object and ensures it has a name defined
 				 * and that the name is not empty.
@@ -67,25 +64,21 @@ $(function() {
 					* should have two expectations: does the menu display when
 					* clicked and does it hide when clicked again.
 					*/
-
 		describe('The menu', function() {
 				// default state
-				it('is hidden by default', function() {
-					expect($('body').hasClass('menu-hidden')).toBe(true);
+			it('is hidden by default', function() {
+				expect($('body').hasClass('menu-hidden')).toBe(true);
 			});
-
 				let menu = $('a.menu-icon-link');
 				// first click
-				it('is visible on click', function() {
-
-					menu.click();
-					expect(document.body.classList).not.toContain("menu-hidden");
+			it('is visible on click', function() {
+				menu.click();
+				expect(document.body.classList).not.toContain("menu-hidden");
 			});
 				// second click
-				it('is Not visible on click', function() {
-					menu.click();
-					expect(document.body.classList).toContain("menu-hidden");
-
+			it('is Not visible on click', function() {
+				menu.click();
+				expect(document.body.classList).toContain("menu-hidden");
 			});
 		})
 
@@ -97,18 +90,16 @@ $(function() {
 				 * Remember, loadFeed() is asynchronous so this test will require
 				 * the use of Jasmine's beforeEach and asynchronous done() function.
 				 */
-
 		describe('Initial Entries', function() {
-				// Run every time before testing
-				beforeEach(function(done) {
-					loadFeed(0, done);
-				});
-				// Check if object is not empty
-				it('exists', function() {
-					expect($('.feed .entry').length).not.toBe(0);
-				});
-		})
-
+			// Run every time before testing
+			beforeEach(function(done) {
+				loadFeed(0, done);
+			});
+			// Check if object is not empty
+			it('exists', function() {
+				expect($('.feed .entry').length).not.toBe(0);
+			});
+		});
 
 		/* TODO: Write a new test suite named "New Feed Selection" */
 
@@ -116,4 +107,20 @@ $(function() {
 				 * by the loadFeed function that the content actually changes.
 				 * Remember, loadFeed() is asynchronous.
 				 */
+		describe('New Feed Selection', function() {
+			let previousFeed,
+					currentFeed;
+			beforeAll(function() {
+				loadFeed(0, function() {
+					previousFeed = $('.feed').html();
+				});
+				beforeEach(function(done) {
+					loadFeed(1, done);
+				});
+			});
+			it('has new loaded content', function() {
+				currentFeed = $('.feed').html();
+				expect(currentFeed).not.toBe(previousFeed);
+			});
+		});
 }());
