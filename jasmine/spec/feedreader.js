@@ -110,6 +110,7 @@ $(function() {
 		describe('New Feed Selection', function() {
 			let previousFeed,
 					currentFeed;
+			// Get the initial feed
 			beforeAll(function() {
 				loadFeed(0, function() {
 					previousFeed = $('.feed').html();
@@ -118,6 +119,7 @@ $(function() {
 					loadFeed(1, done);
 				});
 			});
+			// Check old feed vs current feed
 			it('has new loaded content', function() {
 				currentFeed = $('.feed').html();
 				expect(currentFeed).not.toBe(previousFeed);
